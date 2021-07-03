@@ -1,0 +1,3 @@
+[submodule "ax12-control"]
+	path = ax12-control
+	url = https://github.com/aakieu/ax12-control
