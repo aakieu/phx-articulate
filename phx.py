@@ -8,7 +8,7 @@ def getMotorPositions(jointObjs):
     for joint in jointObjs:
 
         jointName = joint.name
-        position = joint.getMotorPositions()
+        position = joint.getMotorPosition()
         print(jointName + ': ' + str(position))
 
 
@@ -27,3 +27,18 @@ def setSpeedRaw(jointObjs, rawSpeeds):
     '''
     for joint, speed in zip(jointObjs, rawSpeeds):
         joint.setSpeedRaw(speed)
+
+def enableTorque(jointObjs):
+    ''' enable Torque for all Joint Objects
+
+    '''
+    for joint in jointObjs:
+        joint.enableTorque()
+
+def disableTorque(jointObjs):
+    ''' disable Torque for all Joint Objects
+
+    '''
+    for joint in jointObjs:
+        joint.disableTorque()
+

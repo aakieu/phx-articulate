@@ -20,11 +20,14 @@ WINDOWS = False
 if CONNECT:
     if WINDOWS: Ax12.DEVICENAME = 'COM3'
     Ax12.connect()
-    setSpeedRaw(jointObjs,[100, 100, 100, 100, 100])
+    phx.setSpeedRaw(jointObjs,[100, 100, 100, 100, 100])
+
+
+
 
     # map angles
-    waist.setMinMaxTheta(512)
-    shoulder.setMinMaxTheta(761)
+    #waist.setMinMaxTheta(512)
+    #shoulder.setMinMaxTheta(761)
     # elbow.setMinMaxTheta()
     # wristPitch.setMinMaxTheta()
     # wristRoll.setMinMaxTheta()

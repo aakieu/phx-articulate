@@ -15,7 +15,7 @@ class Joint():
             self.multiple = True
 
 
-    def getMotorPositions(self):
+    def getMotorPosition(self):
         """ Returns a list of raw motor position values for each joint
 
         """ 
@@ -44,4 +44,10 @@ class Joint():
         for motorObject in self.motorObjects:
             motorObject.set_moving_speed(speed)
 
+    def enableTorque(self):
+        for motorObject in self.motorObjects:
+            motorObject.enable_torque() 
 
+    def disableTorque(self):
+        for motorObject in self.motorObjects:
+            motorObject.disable_torque()
