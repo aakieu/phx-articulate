@@ -16,6 +16,7 @@ jointObjs = [waist, shoulder, elbow, wristPitch, gripper]
 CONNECT = True
 WINDOWS = False
 
+# hardware testing 
 if CONNECT:
     if WINDOWS: Ax12.DEVICENAME = 'COM3'
     Ax12.connect()

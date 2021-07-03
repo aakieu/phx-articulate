@@ -1,9 +1,6 @@
 import math
 from ax12_control.Ax12 import Ax12
 
-
-
-
 class Joint():
     """ Class for each robot joint"""
 
