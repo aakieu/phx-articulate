@@ -22,11 +22,11 @@ if CONNECT:
     Ax12.connect()
     phx.setSpeedRaw(jointObjs,[100, 100, 100, 100, 100])
 
-
-
-
     # map angles
-    #waist.setMinMaxTheta(512)
+    waist.setMinMaxTheta(512)
+    
+    
+    
     #shoulder.setMinMaxTheta(761)
     # elbow.setMinMaxTheta()
     # wristPitch.setMinMaxTheta()
