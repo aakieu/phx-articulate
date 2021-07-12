@@ -57,7 +57,7 @@ class Joint():
         rawZeroAngle - the raw motor position value where position of joint is 0 degrees on kinematic diagram
 
         """
-        if self.name == 'Shoulder':
+        if self.name == 'shoulder':
             print('inverted motor joint')
             self.thetaMin = math.ceil(0 - Ax12.raw2deg(1023 - rawZeroAngle))
             self.thetaMax = math.ceil(Ax12.raw2deg(rawZeroAngle))
@@ -75,7 +75,7 @@ class Joint():
         thetaMin/Max is set using setMinMaxTheta()
 
         """
-        if self.name == 'Shoulder' :
+        if self.name == 'shoulder' :
             rawPos = math.ceil(self.mapLinear(angleIn, self.thetaMax, self.thetaMin, 0, 1023))
         else:
             rawPos = math.ceil(self.mapLinear(angleIn, self.thetaMin, self.thetaMax, 0, 1023))
@@ -86,6 +86,12 @@ class Joint():
         """ Writes input angle (from kinematic diagram) to motor
         """
         self.setPositionRaw(self.degToRawPos(angle))
+
+    def getAngle(self):
+        pass
+
+
+
 
     @staticmethod
     def mapLinear(x_in, x_min, x_max, y_min, y_max):
