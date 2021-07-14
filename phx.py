@@ -13,6 +13,11 @@ gripper = Joint([8], 'gripper')
 # all Joint objects
 jointObjs = [waist, shoulder, elbow, wristPitch, wristRoll, gripper]
 
+# poses 
+
+initPose = [0, 90, -90, 0, 0, 0]
+sleepPose = [1, 159, -159, 16, 1, 0]
+
 def config():
     """
     maps motor angles to conform with kinematic angles
@@ -25,36 +30,36 @@ def config():
     wristRoll.setMinMaxTheta(512)
     gripper.setMinMaxTheta(512)
 
-    setSpeedRaw(jointObjs,[100, 100, 100, 100, 100, 100])
+    setRawSpeeds(jointObjs,[100, 100, 100, 100, 100, 100])
 
 
 
 
 # functions that apply to all joints
-def getMotorPositions(jointObjs):
+def getRawPositions(jointObjs):
     
     for joint in jointObjs:
 
         jointName = joint.name
-        position = joint.getMotorPosition()
+        position = joint.getRawPosition()
         print(jointName + ': ' + str(position))
 
 
-def getSpeedRaw(jointObjs):
+def getRawSpeeds(jointObjs):
     
     for joint in jointObjs:
 
         jointName = joint.name
-        speedRaw = joint.getSpeedRaw()
+        speedRaw = joint.getRawSpeed()
         print(jointName + ': ' + str(speedRaw))
 
 
-def setSpeedRaw(jointObjs, rawSpeeds):
+def setRawSpeeds(jointObjs, rawSpeeds):
     ''' Sets speed for all Joint Objects
 
     '''
     for joint, speed in zip(jointObjs, rawSpeeds):
-        joint.setSpeedRaw(speed)
+        joint.setRawSpeed(speed)
 
 def enableTorque(jointObjs):
     ''' enable Torque for all Joint Objects
@@ -69,6 +74,20 @@ def disableTorque(jointObjs):
     '''
     for joint in jointObjs:
         joint.disableTorque()
+
+def getAngles(jointObjs):
+
+    return [joint.getAngle() for joint in jointObjs]
+
+    # for joint in jointObjs:
+
+    #     jointName = joint.name
+    #     kinTheta = joint.getAngle()
+    #     print(jointName + ': ' + str(position))
+
+def setAngles(jointObjs, angles):
+    for joint, angle in zip(jointObjs, angles):
+        joint.setAngle(angle)
 
 
 

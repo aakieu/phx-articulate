@@ -15,7 +15,7 @@ class Joint():
             self.multiple = True
 
 
-    def getMotorPosition(self):
+    def getRawPosition(self):
         """ Returns a list of raw motor position values for each joint
 
         """ 
@@ -31,13 +31,13 @@ class Joint():
         else:
             self.motorObjects[0].set_goal_position(position)
 
-    def getSpeedRaw(self): 
+    def getRawSpeed(self): 
         """ Returns a list of raw motor speed values for each joint
 
         """ 
         return [motorObject.get_moving_speed() for motorObject in self.motorObjects]
 
-    def setSpeedRaw(self, speed):
+    def setRawSpeed(self, speed):
         """  Sets the raw motor speed value(s) for each joint object
 
         """
@@ -88,9 +88,17 @@ class Joint():
         self.setPositionRaw(self.degToRawPos(angle))
 
     def getAngle(self):
-        pass
+        """ Returns kinematic angle of Joint
+        """
 
+        rawPos = self.getRawPosition()[0]
 
+        if self.name == 'shoulder' :
+            kinTheta = math.ceil(self.mapLinear(rawPos,0,1023, self.thetaMax, self.thetaMin))
+        else:
+            kinTheta = math.ceil(self.mapLinear(rawPos,0,1023, self.thetaMin, self.thetaMax))
+
+        return kinTheta
 
 
     @staticmethod
