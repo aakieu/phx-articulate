@@ -3,6 +3,7 @@ import math
 from Joint import Joint
 import phx
 from phx import waist, shoulder, elbow, wristPitch, wristRoll, gripper
+import fk
 
 
 
