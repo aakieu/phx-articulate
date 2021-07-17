@@ -11,7 +11,7 @@ wristRoll = Joint([7], 'wristRoll')
 gripper = Joint([8], 'gripper')
 
 # all Joint objects
-jointObjs = [waist, shoulder, elbow, wristPitch, wristRoll, gripper]
+allJoints = [waist, shoulder, elbow, wristPitch, wristRoll, gripper]
 
 # poses 
 
@@ -30,10 +30,7 @@ def config():
     wristRoll.setMinMaxTheta(512)
     gripper.setMinMaxTheta(512)
 
-    setRawSpeeds(jointObjs,[100, 100, 100, 100, 100, 100])
-
-
-
+    setRawSpeeds(allJoints,[100, 100, 100, 100, 100, 100])
 
 # functions that apply to all joints
 def getRawPositions(jointObjs):
@@ -91,3 +88,5 @@ def setAngles(jointObjs, angles):
 
 
 
+def setPose(poseName):
+    setAngles(allJoints,poseName)
