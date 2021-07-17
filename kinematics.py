@@ -14,7 +14,7 @@ def rot_x(theta_deg):
     """ 
     Returns rotation matrix 
     """
-    
+
     theta_rad = np.radians(theta_deg)
     rotation_matrix = [[1, 0, 0],
                        [0, np.cos(theta_rad), -np.sin(theta_rad)],
@@ -136,3 +136,57 @@ def fk4(theta):
     z0_4 = h0_4[2, 3]
     d0_4 = [x0_4, y0_4, z0_4]
     return d0_4
+
+
+# Inverse Kinematics #
+def ik3(xyz_array):
+    # Eqn 1
+    theta_1 = np.arctan2(xyz_array[1], xyz_array[0])
+    # Eqn 2
+    r1 = np.hypot(xyz_array[0], xyz_array[1])
+    # Eqn 3
+    r2 = xyz_array[2] - link_lengths[0]
+    # Eqn 4
+    phi2 = np.arctan2(r2, r1)
+    # Eqn 5
+    r3 = np.hypot(r1, r2)
+    # Eqn 6
+    num6 = np.power(link_lengths[2], 2) - np.power(link_lengths[1], 2) - np.power(r3, 2)
+    den6 = -2 * link_lengths[1] * r3
+    phi1 = np.arccos(num6 / den6)
+    # Eqn 7
+    # theta_2 = phi2 - phi1  # elbow down
+    theta_2 = phi2 + phi1
+    # Eqn 8
+    num8 = np.power(r3, 2) - np.power(link_lengths[1], 2) - np.power(link_lengths[2], 2)
+    den8 = -2 * link_lengths[1] * link_lengths[2]
+    phi3 = np.arccos(num8 / den8)
+    # Eqn 9
+    # theta_3 = pi - phi3 # elbow down
+    theta_3 = -(np.pi - phi3)
+    # Output Joint Angles
+    theta_1 = np.rad2deg(theta_1)
+    theta_2 = np.rad2deg(theta_2)
+    theta_3 = np.rad2deg(theta_3)
+    joint_angles = np.array([theta_1, theta_2, theta_3])
+    return joint_angles
+
+
+def calculate_theta_4(joint_angles, theta0_4):
+    # R0_3
+    theta_1 = joint_angles[0]
+    theta_2 = joint_angles[1]
+    theta_3 = joint_angles[2]
+    # R0_4
+    R0_4a = np.dot(rbx.rot_z(theta_1), rbx.rot_x(90))
+    R0_4 = np.dot(R0_4a, rbx.rot_z(theta0_4))
+    R0_1 = np.dot(rbx.rot_x(90), rbx.rot_y(theta_1))
+    R1_2 = rbx.rot_z(theta_2)
+    R2_3 = rbx.rot_z(theta_3)
+    R0_2 = np.dot(R0_1, R1_2)
+    R0_3 = np.dot(R0_2, R2_3)
+    # R3_4
+    R3_4 = np.dot(np.transpose(R0_3), R0_4)
+    # theta_4
+    theta_4 = np.degrees(np.arcsin(R3_4[1, 0]))
+    return theta_4

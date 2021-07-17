@@ -24,7 +24,7 @@ def config():
 
     """
     waist.setMinMaxTheta(512)
-    shoulder.setMinMaxTheta(751)
+    shoulder.setMinMaxTheta(747)
     elbow.setMinMaxTheta(761)
     wristPitch.setMinMaxTheta(512)
     wristRoll.setMinMaxTheta(512)
