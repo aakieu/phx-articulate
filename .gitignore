@@ -3,9 +3,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-#submodule
-ax12_control/
-
 # C extensions
 *.so
 
